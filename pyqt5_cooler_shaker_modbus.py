@@ -97,6 +97,7 @@ GPIO.setup(STEP, GPIO.OUT)
 # Using a NEMA 23 stepper with 200 steps per rev with x16 microstepping driver
 # --------------------------------
 motorSteps = 200 * 16
+jog_speed = 180/(720*motorSteps)
 
 # --------------------------------
 # Checksum function to send the correct values to controller
@@ -523,15 +524,13 @@ class MotorWorker(QThread):
         self.speed = 0.0
         self.dor = 0.0
         self.dwell = 0.0
-        jog_speed = 180/(720*motorSteps)
 
     # work called when Start/Stop Button is toggled
     def work(self):
         log.debug("Motor Running")
         sec_per_step = 180/(self.speed*motorSteps)
-        jog_speed = 180/(720*motorSteps) # not sure why it wont reference __init__
-        pos = 0 # also not sure why wont reference __init__ here
-        steps = range(round(self.dor/360*motorSteps))
+        pos = 0 # not sure why wont reference __init__ here
+        dor = range(round(self.dor/360*motorSteps))
         while self.working:
             #print("sec perstep: ", sec_per_step)
             GPIO.output(DIR,CW)
@@ -575,24 +574,22 @@ class MotorWorker(QThread):
 
 
     def work_fwd(self):
-        jog_speed = 180/(720*motorSteps) # not sure why it wont reference __init__
         GPIO.output(DIR,CW)
         while self.fwd_working:
             GPIO.output(STEP,GPIO.HIGH)
-            time.sleep(jog_speed)
+            time.sleep(0.03)
             GPIO.output(STEP,GPIO.LOW)
-            time.sleep(jog_speed)
+            time.sleep(0.03)
             log.debug("Rotate Forward Toggle")
         self.finished.emit() # alert our gui that the loop stopped
 
     def work_rev(self):
-        jog_speed = 180/(720*motorSteps) # not sure why it wont reference __init__
         GPIO.output(DIR,CCW)
         while self.rev_working:
             GPIO.output(STEP,GPIO.HIGH)
-            time.sleep(jog_speed)
+            time.sleep(0.03)
             GPIO.output(STEP,GPIO.LOW)
-            time.sleep(jog_speed)
+            time.sleep(0.03)
             log.debug("Rotate Reverse Toggle")
         self.finished.emit() # alert our gui that the loop stopped
 
@@ -2550,9 +2547,9 @@ class MyWindow(QMainWindow):        # can name MyWindow anything, inherit QMainW
             GPIO.output(DIR,CW)
             for x in range (steps):
                 GPIO.output(STEP,GPIO.HIGH)
-                time.sleep(0.0001)
+                time.sleep(jog_speed)
                 GPIO.output(STEP,GPIO.LOW)
-                time.sleep(0.0001)
+                time.sleep(jog_speed)
         else:
             if self.RotateFwd_B.isChecked():
                 self.StartStopMotor_B.setEnabled(False)
@@ -2581,9 +2578,9 @@ class MyWindow(QMainWindow):        # can name MyWindow anything, inherit QMainW
             GPIO.output(DIR,CCW)
             for x in range (steps):
                 GPIO.output(STEP,GPIO.HIGH)
-                time.sleep(0.0001)
+                time.sleep(jog_speed)
                 GPIO.output(STEP,GPIO.LOW)
-                time.sleep(0.0001)
+                time.sleep(jog_speed)
         else:
             if self.RotateRev_B.isChecked():
                 self.StartStopMotor_B.setEnabled(False)
