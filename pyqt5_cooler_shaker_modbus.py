@@ -577,9 +577,9 @@ class MotorWorker(QThread):
         GPIO.output(DIR,CW)
         while self.fwd_working:
             GPIO.output(STEP,GPIO.HIGH)
-            time.sleep(0.03)
+            time.sleep(0.002)
             GPIO.output(STEP,GPIO.LOW)
-            time.sleep(0.03)
+            time.sleep(0.002)
             log.debug("Rotate Forward Toggle")
         self.finished.emit() # alert our gui that the loop stopped
 
@@ -587,9 +587,9 @@ class MotorWorker(QThread):
         GPIO.output(DIR,CCW)
         while self.rev_working:
             GPIO.output(STEP,GPIO.HIGH)
-            time.sleep(0.03)
+            time.sleep(0.002)
             GPIO.output(STEP,GPIO.LOW)
-            time.sleep(0.03)
+            time.sleep(0.002)
             log.debug("Rotate Reverse Toggle")
         self.finished.emit() # alert our gui that the loop stopped
 
