@@ -571,25 +571,25 @@ class MotorWorker(QThread):
         self.finished.emit() # alert our gui that the loop stopped
 
 
-#    def work_fwd(self):
-#        GPIO.output(DIR,CW)
-#        while self.fwd_working:
-#            GPIO.output(STEP,GPIO.HIGH)
-#            time.sleep(jog_speed)
-#            GPIO.output(STEP,GPIO.LOW)
-#            time.sleep(jog_speed)
-#            log.debug("Rotate Forward Toggle")
-#        self.finished.emit() # alert our gui that the loop stopped
+    def work_fwd(self):
+        GPIO.output(DIR,CW)
+        while self.fwd_working:
+            GPIO.output(STEP,GPIO.HIGH)
+            time.sleep(jog_speed)
+            GPIO.output(STEP,GPIO.LOW)
+            time.sleep(jog_speed)
+            log.debug("Rotate Forward Toggle")
+        self.finished.emit() # alert our gui that the loop stopped
 
-#    def work_rev(self):
-#       GPIO.output(DIR,CCW)
-#        while self.rev_working:
-#            GPIO.output(STEP,GPIO.HIGH)
-#            time.sleep(jog_speed)
-#            GPIO.output(STEP,GPIO.LOW)
-#            time.sleep(jog_speed)
-#            log.debug("Rotate Reverse Toggle")
-#        self.finished.emit() # alert our gui that the loop stopped
+    def work_rev(self):
+        GPIO.output(DIR,CCW)
+        while self.rev_working:
+            GPIO.output(STEP,GPIO.HIGH)
+            time.sleep(jog_speed)
+            GPIO.output(STEP,GPIO.LOW)
+            time.sleep(jog_speed)
+            log.debug("Rotate Reverse Toggle")
+        self.finished.emit() # alert our gui that the loop stopped
 
 # --------------------------------
 # MotorWindow creates the Motor Settings window
