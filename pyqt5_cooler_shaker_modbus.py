@@ -534,7 +534,7 @@ class MotorWorker(QThread):
         while self.working:
             #print("sec perstep: ", sec_per_step)
             GPIO.output(DIR,CW)
-            while pos > steps:
+            while pos < steps:
                 pos +=1
                 #print ('CW'+str(pos))
                 GPIO.output(STEP,GPIO.HIGH)
