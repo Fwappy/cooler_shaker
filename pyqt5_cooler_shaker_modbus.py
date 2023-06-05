@@ -750,7 +750,7 @@ class MotorWindow(QMainWindow):
         self.msSpinBox.setDecimals(0)
         self.msSpinBox.setMaximum(360.0)
         self.msSpinBox.setSingleStep(15.0)
-        self.msSpinBox.setProperty("value", 45.0)
+        self.msSpinBox.setProperty("value", 90.0)
         self.msSpinBox.setObjectName("msSpinBox")
 
         self.dwellSpinBox = QtWidgets.QDoubleSpinBox(self.centralwidget)
@@ -798,7 +798,7 @@ class MotorWindow(QMainWindow):
         self.dwellSpinBox.setDecimals(1)
         self.dwellSpinBox.setMaximum(10.0)
         self.dwellSpinBox.setSingleStep(0.5)
-        self.dwellSpinBox.setProperty("value", 1.0)
+        self.dwellSpinBox.setProperty("value", 0.5)
         self.dwellSpinBox.setObjectName("dwellSpinBox")
 
         self.graphicsView_motor = QtWidgets.QGraphicsView(self.centralwidget)
@@ -2096,7 +2096,7 @@ class MyWindow(QMainWindow):        # can name MyWindow anything, inherit QMainW
         self.MS_SB.setDecimals(0)
         self.MS_SB.setMaximum(360.0)                            #
         self.MS_SB.setSingleStep(1.0)
-        self.MS_SB.setProperty("value", 45.0)
+        self.MS_SB.setProperty("value", 90.0)
         self.MS_SB.setObjectName("MS_SB")
 
         self.MDOR_SB = QtWidgets.QDoubleSpinBox(self.centralwidget)
@@ -2174,7 +2174,7 @@ class MyWindow(QMainWindow):        # can name MyWindow anything, inherit QMainW
         self.MD_SB.setDecimals(1)
         self.MD_SB.setMaximum(10.0)
         self.MD_SB.setSingleStep(0.5)
-        self.MD_SB.setProperty("value", 1.0)
+        self.MD_SB.setProperty("value", 0.5)
         self.MD_SB.setObjectName("MD_SB")
 
         self.graphicsView = QtWidgets.QGraphicsView(self.centralwidget)
