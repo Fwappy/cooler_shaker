@@ -2773,6 +2773,10 @@ class MyWindow(QMainWindow):        # can name MyWindow anything, inherit QMainW
             self.motorworker.finished.connect(self.motorworker.deleteLater)  # have worker mark itself for deletion
             self.motorthread.finished.connect(self.motorthread.deleteLater)  # have thread mark itself for deletion
             # make sure those last two are connected to themselves or you will get random crashes
+            # Disable Start Stop button for long enough to allow motor to return to inital position
+            self.StartStopMotor_B.setEnabled(False)
+            time.sleep(0.5+self.MD_SB.value())
+            self.StartStopMotor_B.setEnabled(False)
 
     # Creates modbus server in seperate thread via ServerWorker class
     def StartServer(self):
