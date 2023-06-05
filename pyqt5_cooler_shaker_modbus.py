@@ -533,8 +533,8 @@ class MotorWorker(QThread):
         steps = self.dor/360*motorSteps
         while self.working:
             #print("sec perstep: ", sec_per_step)
-            GPIO.output(DIR,CW)
             while pos < steps:
+                GPIO.output(DIR,CW)
                 pos +=1
                 #print ('CW'+str(pos))
                 GPIO.output(STEP,GPIO.HIGH)
@@ -548,8 +548,8 @@ class MotorWorker(QThread):
             time.sleep(self.dwell)
             if not self.working:
                 break
-            GPIO.output(DIR,CCW)
             while pos > 0:
+                GPIO.output(DIR,CCW)
                 pos -=1
                 #print ('CCW'+str(pos))
                 GPIO.output(STEP,GPIO.HIGH)
@@ -2763,6 +2763,7 @@ class MyWindow(QMainWindow):        # can name MyWindow anything, inherit QMainW
             self.serverworker.MB_motor_on = True
             self.serverworker.GUI_motorFlag = True
         else:
+            self.StartStopMotor_B.setEnabled(False)
             self.RotateFwd_B.setEnabled(True)
             self.RotateRev_B.setEnabled(True)
             self.serverworker.MB_motor_on = False
@@ -2773,10 +2774,8 @@ class MyWindow(QMainWindow):        # can name MyWindow anything, inherit QMainW
             self.motorworker.finished.connect(self.motorworker.deleteLater)  # have worker mark itself for deletion
             self.motorthread.finished.connect(self.motorthread.deleteLater)  # have thread mark itself for deletion
             # make sure those last two are connected to themselves or you will get random crashes
-            # Disable Start Stop button for long enough to allow motor to return to inital position
-            self.StartStopMotor_B.setEnabled(False)
-            time.sleep(1)
-            self.StartStopMotor_B.setEnabled(False)
+            # Disable Start Stop button while motor is still moving
+            self.motorthread.finished.connect(lambda:self.StartStopMotor_B.setEnabled(True))
 
     # Creates modbus server in seperate thread via ServerWorker class
     def StartServer(self):
@@ -2830,3 +2829,4 @@ if __name__ == "__main__":
     win.show()                      # show main window
 
     sys.exit(app.exec())
+
