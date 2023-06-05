@@ -530,7 +530,7 @@ class MotorWorker(QThread):
         log.debug("Motor Running")
         sec_per_step = 180/(self.speed*motorSteps)
         pos = 0 # not sure why wont reference __init__ here
-        dor = self.dor/360*motorSteps
+        steps = self.dor/360*motorSteps
         while self.working:
             #print("sec perstep: ", sec_per_step)
             GPIO.output(DIR,CW)
