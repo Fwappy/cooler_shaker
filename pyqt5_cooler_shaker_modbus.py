@@ -97,7 +97,7 @@ GPIO.setup(STEP, GPIO.OUT)
 # Using a NEMA 23 stepper with 200 steps per rev with x16 microstepping driver
 # --------------------------------
 motorSteps = 200 * 16
-jog_speed = 180/(720*motorSteps)
+jog_speed = 180/(180*motorSteps)
 
 # --------------------------------
 # Checksum function to send the correct values to controller
