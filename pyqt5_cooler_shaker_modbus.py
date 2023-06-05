@@ -2749,6 +2749,8 @@ class MyWindow(QMainWindow):        # can name MyWindow anything, inherit QMainW
     # Handler for Start/Stop button press
     def StartStopHandler(self):
         if self.StartStopMotor_B.isChecked():
+            self.RotateFwd_B.setEnabled(False)
+            self.RotateRev_B.setEnabled(False)
             self.motorthread = QThread(parent=self)  # a new thread to run our background tasks in
             self.motorthread.daemon = True
             self.motorworker = MotorWorker()  # a new worker to perform those tasks
@@ -2761,6 +2763,8 @@ class MyWindow(QMainWindow):        # can name MyWindow anything, inherit QMainW
             self.serverworker.MB_motor_on = True
             self.serverworker.GUI_motorFlag = True
         else:
+            self.RotateFwd_B.setEnabled(True)
+            self.RotateRev_B.setEnabled(True)
             self.serverworker.MB_motor_on = False
             self.serverworker.GUI_motorFlag = True
             self.motorworker.working = False
