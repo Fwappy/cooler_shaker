@@ -561,8 +561,8 @@ class MotorWorker(QThread):
             if not self.working:
                 break
             time.sleep(self.dwell)
-        GPIO.output(DIR,CCW)
         while pos > 0:
+                GPIO.output(DIR,CCW)
                 pos -=1
                 #print ('CCW'+str(pos))
                 GPIO.output(STEP,GPIO.HIGH)
@@ -2774,7 +2774,7 @@ class MyWindow(QMainWindow):        # can name MyWindow anything, inherit QMainW
             self.motorworker.finished.connect(self.motorworker.deleteLater)  # have worker mark itself for deletion
             self.motorthread.finished.connect(self.motorthread.deleteLater)  # have thread mark itself for deletion
             # make sure those last two are connected to themselves or you will get random crashes
-            # Disable Start Stop button while motor is still moving
+            # Re-enable Start Stop button when motor stops moving
             self.motorthread.finished.connect(lambda:self.StartStopMotor_B.setEnabled(True))
 
     # Creates modbus server in seperate thread via ServerWorker class
