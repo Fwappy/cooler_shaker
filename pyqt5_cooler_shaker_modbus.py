@@ -2775,7 +2775,7 @@ class MyWindow(QMainWindow):        # can name MyWindow anything, inherit QMainW
             # make sure those last two are connected to themselves or you will get random crashes
             # Disable Start Stop button for long enough to allow motor to return to inital position
             self.StartStopMotor_B.setEnabled(False)
-            time.sleep(0.5+self.MD_SB.value())
+            time.sleep(1)
             self.StartStopMotor_B.setEnabled(False)
 
     # Creates modbus server in seperate thread via ServerWorker class
