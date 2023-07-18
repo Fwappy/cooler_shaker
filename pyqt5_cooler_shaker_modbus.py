@@ -350,11 +350,11 @@ class ServerWorker(QThread):
         sleep(0.1)
         di_values = [self.MB_alarm_low_voltage, self.MB_alarm_therm, self.MB_alarm_overcurrent, self.MB_alarm_lowtemp, self.MB_alarm_hightemp]
         context[slave_id].setValues(register_di, address, di_values)
-        self.GUI_motorFlag = False
+        #self.GUI_motorFlag = False
         # ---- COILS SECTION ----
         if (co_values_inserver[0] != self.MB_motor_on) and (self.GUI_motorFlag == False):
             log.debug("Coils changed from Modbus, setting motor to off/on determined from Modbus")
-            #self.motorStatus.emit()
+            self.motorStatus.emit()
         else:
             co_values = [self.MB_motor_on]
             context[slave_id].setValues(register_co, address, co_values)
